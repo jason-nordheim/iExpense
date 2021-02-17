@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { InputField } from "./common/InputField";
 
-export const Login = () => {
+export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginEnabled, setLoginEnabled] = useState(false);
@@ -15,28 +16,26 @@ export const Login = () => {
     e.preventDefault();
   };
   return (
-    <form onSubmit={handleSubmit} className="container">
+    <form onSubmit={handleSubmit}>
+      <h3>Register</h3>
       <div className="row">
-        <h3>Register</h3>
-      </div>
-      <div className="row">
-        <label htmlFor="username">Username</label>
-        <input
+        <InputField
           type="text"
           htmlFor="username"
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          setValue={setUsername}
+          minLength={5}
           required
         />
       </div>
       <div className="row">
-        <label htmlFor="password">Password</label>
-        <input
+        <InputField
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          setValue={setPassword}
+          minLength={5}
           required
         />
       </div>
@@ -48,8 +47,11 @@ export const Login = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          Regiser
+          Register
         </button>
+      </div>
+      <div className="row">
+        Already have an account? Login <a href="#!">Here</a>
       </div>
     </form>
   );

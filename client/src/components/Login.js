@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { InputField } from "./common/InputField";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,28 +17,26 @@ export const Login = () => {
     e.preventDefault();
   };
   return (
-    <form onSubmit={handleSubmit} className="container">
+    <form onSubmit={handleSubmit}>
+      <h3>Login</h3>
       <div className="row">
-        <h3>Login</h3>
-      </div>
-      <div className="row">
-        <label htmlFor="username">Username</label>
-        <input
+        <InputField
           type="text"
           htmlFor="username"
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          setValue={setUsername}
+          minLength={5}
           required
         />
       </div>
       <div className="row">
-        <label htmlFor="password">Password</label>
-        <input
+        <InputField
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          setValue={setPassword}
+          minLength={5}
           required
         />
       </div>
@@ -50,6 +50,9 @@ export const Login = () => {
         >
           Login
         </button>
+      </div>
+      <div className="row">
+        Don't have an account? Register <a href="#!">Here</a>
       </div>
     </form>
   );
