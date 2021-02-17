@@ -6,8 +6,8 @@ import { Profile } from "./pages/Profile";
 export const App = () => {
   return (
     <BrowserRouter>
-      <NavBar />
-      <main>
+      <main className="purple lighten-4" style={{ height: "100vh" }}>
+        <NavBar />
         <Switch>
           <Route path="/profile">
             <Profile />
