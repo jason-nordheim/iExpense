@@ -1,11 +1,58 @@
+import { useState } from "react";
 import { PageTitle } from "../components/common/PageTitle";
+import { Login } from "../components/Login";
+import { Register } from "../components/Register";
+
+const cards = {
+  login: "login",
+  register: "register",
+};
 
 export const Profile = () => {
+  const [card, setCard] = useState(cards.login);
+
+  const handleTabClick = (newCard) => {
+    setCard(newCard);
+  };
+
   return (
     <>
       <div className="row">
-        <h1>Profile</h1>
-        <span className="em-divider"></span>
+        <PageTitle value="Profile" />
+      </div>
+      <div className="container">
+        <div className="card">
+          <div className="card-tabs">
+            <ul className="tabs tabs-fixed-width ">
+              <li className="tab">
+                <a
+                  className={`purple-text text-darken-4 ${
+                    card === card.login && "active"
+                  }`}
+                  href="#!"
+                  onClick={(e) => handleTabClick(cards.login)}
+                >
+                  Login
+                </a>
+              </li>
+              <li className={`tab`}>
+                <a
+                  className={`purple-text text-darken-4 ${
+                    card === card.register && "active"
+                  }`}
+                  href="#!"
+                  onClick={() => handleTabClick(cards.register)}
+                >
+                  Register
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="card-content">
+            {card === cards.login && <Login />}
+            {card === cards.register && <Register />}
+          </div>
+        </div>
       </div>
     </>
   );
