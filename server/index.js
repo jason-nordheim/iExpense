@@ -37,11 +37,11 @@ app.post(BASE_URL + "users/", async (req, res) => {
   if (invalidRequest) res.status(BAD_REQUEST).send(reqError);
   try {
     const user = await findUserByUsername(username);
-    if (user) return res.status(BAD_REQUEST).send(usrExistsError);
+    if (user) return res.status(FORBIDDEN).send(usrExistsError);
     const newUser = await insertUser(username, password);
     res.status(SUCCESS).send(newUser);
   } catch (error) {
-    res.status(SUCCESS).send(error);
+    res.status(INTERNAL_SERVER_ERROR).send(error);
   }
 });
 
