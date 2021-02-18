@@ -3,6 +3,17 @@ import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
 
+/***
+ * Redux action creators for actions related to users.
+ * Public action creators are exposed via the userActions object at the top of the file
+ * and function implementations are located below.
+ *
+ * Most of the actions for users are async actions that are made up of multiple sub actions,
+ * this is because they have to make an http request and wait for the response before completing.
+ *
+ * Async actions typically dispatch a request action before performing an async task (e.g. an http request),
+ *  and then dispatch a success or error action based on the result of the async task.
+ */
 export const userActions = {
   login,
   logout,
@@ -11,6 +22,16 @@ export const userActions = {
   delete: _delete,
 };
 
+/**
+ * 1) dispatches `LOGIN_REQUEST` action via `dispatch(request({ username }))`
+ * 2) calls async task `userService.login(username, password)`
+ * 3) dispatches result of `userService.login(username, password)`
+ *     -> Success: dispatches a `LOGIN_SUCCESS` with `dispatch(success(user));`
+ *     -> Failure:  dispatches a `LOGIN_FAILURE` action with `dispatch(failure(error));`
+ * @param {String} username
+ * @param {String} password
+ * @param {Object} from react-router-dom history
+ */
 function login(username, password, from) {
   return (dispatch) => {
     dispatch(request({ username }));

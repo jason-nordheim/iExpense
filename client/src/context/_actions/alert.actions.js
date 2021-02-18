@@ -1,5 +1,8 @@
 import { alertConstants } from "../_constants";
 
+/**
+ * Redux action creators for actions related to alerts / toaster notifications in the application
+ */
 export const alertActions = {
   success,
   error,

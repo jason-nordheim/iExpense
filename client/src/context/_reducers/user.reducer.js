@@ -1,5 +1,10 @@
 import { userConstants } from "../_constants";
 
+/** users reducer manages the users section of the application state
+ *
+ * @param {Object} state
+ * @param {Object} action
+ */
 export function users(state = {}, action) {
   switch (action.type) {
     case userConstants.GETALL_REQUEST:
