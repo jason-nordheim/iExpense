@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
  * Create a Redux store holding the state of your app.
  * Its API is { subscribe, dispatch, getState }.
  */
-export let store = createStore({
+export let userStore = createStore({
   reducer: userReducer,
   middleware: [thunk, logger],
 });
