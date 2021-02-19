@@ -1,16 +1,20 @@
 import { useState } from "react";
+import { useStore } from "react-redux";
 import { PageTitle } from "../components/common/PageTitle";
 import { Login } from "../components/Login";
 import { Register } from "../components/Register";
 
+const cards = {
+    login: "login",
+    register: "register",
+};
 
 export const Profile = () => {
+    const authStore = useStore();
     const [card, setCard] = useState(cards.login);
-
-    const cards = {
-        login: "login",
-        register: "register",
-    };
+    const state = authStore.getState();
+    console.log(state.loggedIn);
+    console.log(state.user);
 
     const handleTabClick = (newCard) => {
         setCard(newCard);
@@ -21,6 +25,7 @@ export const Profile = () => {
             <div className="row">
                 <PageTitle value="Profile" />
             </div>
+
             <div className="container">
                 <div className="card">
                     <div className="card-tabs">
@@ -48,8 +53,8 @@ export const Profile = () => {
                         </ul>
                     </div>
                     <div className="card-content">
-                        {card === cards.login && <Login />}
-                        {card === cards.register && <Register />}
+                        {card === cards.login && <Login store={authStore} />}
+                        {card === cards.register && <Register store={authStore} />}
                     </div>
                 </div>
             </div>
