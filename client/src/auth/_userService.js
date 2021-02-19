@@ -5,7 +5,7 @@ export const userService = {
   login: loginUser,
   logout: logoutUser,
   register: registerUser,
-  whoAmI: () => {},
+  whoAmI: whoAmI,
 };
 
 /**
@@ -48,6 +48,20 @@ function registerUser(username, password) {
   };
 
   const URI = Routes.RegisterUser.url;
+
+  return fetch(URI, requestOptions).then((res) => handleResponse(URI, res));
+}
+
+function whoAmI(token) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authentication: authHeader(),
+    },
+  };
+
+  const URI = Routes.WhoAmI.url;
 
   return fetch(URI, requestOptions).then((res) => handleResponse(URI, res));
 }
