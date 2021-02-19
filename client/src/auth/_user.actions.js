@@ -18,14 +18,13 @@ export const USER_ACTIONS = {
  * @param {String} username
  * @param {String} password
  */
-function login(username, password) {
-  return (dispatch) => {
-    dispatch(loginRequest({ username, password }));
-    userService.login(username, password).then(
-      (token) => dispatch(loginSuccess(token)),
-      (error) => dispatch(loginFailure(error))
-    );
-  };
+function login(dispatch, username, password) {
+  dispatch(loginRequest({ username, password }));
+  userService.login(username, password).then(
+    (token) => dispatch(loginSuccess(token)),
+    (error) => dispatch(loginFailure(error))
+  );
+
   function loginRequest(user) {
     return { type: USER_CONSTANTS.LOGIN_REQUEST, user };
   }
@@ -40,9 +39,9 @@ function login(username, password) {
 /**
  * Removes the token associated with the current user
  */
-function logout() {
+function logout(dispatch) {
   userService.logout();
-  return { type: USER_CONSTANTS.LOGOUT };
+  return dispatch({ type: USER_CONSTANTS.LOGOUT });
 }
 
 /**
@@ -54,14 +53,13 @@ function logout() {
  * @param {String} username
  * @param {String} password
  */
-function register(username, password) {
-  return (dispatch) => {
-    dispatch(registerRequest({ username, password }));
-    userService.register(username, password).then(
-      (user) => dispatch(registerSuccess(user)),
-      (error) => dispatch(registerFailure(error))
-    );
-  };
+function register(dispatch, username, password) {
+  dispatch(registerRequest({ username, password }));
+  userService.register(username, password).then(
+    (user) => dispatch(registerSuccess(user)),
+    (error) => dispatch(registerFailure(error))
+  );
+
   function registerRequest(user) {
     return { type: USER_CONSTANTS.REGISTER_REQUEST, user };
   }
