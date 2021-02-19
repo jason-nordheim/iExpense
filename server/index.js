@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const morgan = require("morgan");
 
 const {
   insertUser,
@@ -28,6 +30,12 @@ const usrExistsError = { error: "user already exists" };
 const reqError = { error: "invalid request body" };
 
 // middleware
+app.use(
+  morgan(
+    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res :referrer" ":user-agent"'
+  )
+);
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post(BASE_URL + "users/", async (req, res) => {
@@ -64,6 +72,12 @@ app.post(BASE_URL + "auth/login/", async (req, res) => {
   } catch (error) {
     res.status(INTERNAL_SERVER_ERROR).send(error);
   }
+});
+
+app.get(BASE_URL + "auth/identity", async (req, res) => {
+  if (!req.body.token) return res.status(BAD_REQUEST).send(reqError);
+
+  console.log(decodeToken(req.body.token));
 });
 
 app.post(BASE_URL + "expenses/", async (req, res) => {
