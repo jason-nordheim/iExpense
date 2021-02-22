@@ -15,24 +15,29 @@ export const USER_ACTIONS = {
  * 3) dispatches result of `userService.login(username, password)`
  *     -> Success: dispatches a `LOGIN_SUCCESS` with `dispatch(loginSuccess(user));`
  *     -> Failure:  dispatches a `LOGIN_FAILURE` action with `dispatch(loginFailure(error));`
+ * @param {Function} dispatch
  * @param {String} username
  * @param {String} password
  */
 function login(dispatch, username, password) {
-  dispatch(loginRequest({ username, password }));
+  const user = { username, password };
+  loginRequest(dispatch, user);
   userService.login(username, password).then(
-    (token) => dispatch(loginSuccess(token)),
-    (error) => dispatch(loginFailure(error))
+    (token) => loginSuccess(dispatch, token),
+    (error) => loginFailure(dispatch, error)
   );
 
-  function loginRequest(user) {
-    return { type: USER_CONSTANTS.LOGIN_REQUEST, user };
+  function loginRequest(dispatch, user) {
+    console.log("loginRequest", user);
+    return dispatch({ type: USER_CONSTANTS.LOGIN_REQUEST, user });
   }
-  function loginSuccess(user) {
-    return { type: USER_CONSTANTS.LOGIN_SUCCESS, user };
+  function loginSuccess(dispatch, user) {
+    console.log("loginSuccess", user);
+    return dispatch({ type: USER_CONSTANTS.LOGIN_SUCCESS, user });
   }
-  function loginFailure(error) {
-    return { type: USER_CONSTANTS.LOGIN_FAILURE, error };
+  function loginFailure(dispact, error) {
+    console.log("loginFailure", error);
+    return dispatch({ type: USER_CONSTANTS.LOGIN_FAILURE, error });
   }
 }
 
@@ -54,19 +59,22 @@ function logout(dispatch) {
  * @param {String} password
  */
 function register(dispatch, username, password) {
-  dispatch(registerRequest({ username, password }));
+  registerRequest(dispatch, { username, password });
   userService.register(username, password).then(
-    (user) => dispatch(registerSuccess(user)),
-    (error) => dispatch(registerFailure(error))
+    (user) => registerSuccess(dispatch, user),
+    (error) => registerFailure(dispatch, error)
   );
 
-  function registerRequest(user) {
-    return { type: USER_CONSTANTS.REGISTER_REQUEST, user };
+  function registerRequest(dispatch, user) {
+    console.log("registerRequest", user);
+    return dispatch({ type: USER_CONSTANTS.REGISTER_REQUEST, user });
   }
-  function registerSuccess(user) {
-    return { type: USER_CONSTANTS.REGISTER_SUCCESS, user };
+  function registerSuccess(dispatch, user) {
+    console.log("registerSuccess", user);
+    return dispatch({ type: USER_CONSTANTS.REGISTER_SUCCESS, user });
   }
-  function registerFailure(error) {
-    return { type: USER_CONSTANTS.REGISTER_FAILURE, error };
+  function registerFailure(dispatch, error) {
+    console.log("registerFailure", error);
+    return dispatch({ type: USER_CONSTANTS.REGISTER_FAILURE, error });
   }
 }
