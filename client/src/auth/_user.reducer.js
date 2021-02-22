@@ -1,7 +1,8 @@
 import { USER_CONSTANTS } from "./_user.constants";
+import { getToken } from "./_userService";
 
-let user = JSON.parse(localStorage.getItem("user"));
-const initialState = user ? { loggedIn: true, user } : {};
+let token = getToken();
+const initialState = token ? { token: token, loggedIn: false } : {};
 
 export function userReducer(state = initialState, action) {
   switch (action.type) {
