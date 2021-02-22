@@ -52,6 +52,10 @@ function registerUser(username, password) {
   return fetch(URI, requestOptions).then((res) => handleResponse(URI, res));
 }
 
+/**
+ * Gets the user associated with the current token
+ * @param {token} token
+ */
 function whoAmI(token) {
   const requestOptions = {
     method: "GET",
