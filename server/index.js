@@ -30,11 +30,7 @@ const usrExistsError = { error: "user already exists" };
 const reqError = { error: "invalid request body" };
 
 // middleware
-app.use(
-  morgan(
-    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res :referrer" ":user-agent"'
-  )
-);
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -70,7 +66,7 @@ app.post(BASE_URL + "auth/login/", async (req, res) => {
       return res.status(FORBIDDEN).send(credError);
     }
   } catch (error) {
-    res.status(INTERNAL_SERVER_ERROR).send(error);
+    return res.status(INTERNAL_SERVER_ERROR).send(error);
   }
 });
 
