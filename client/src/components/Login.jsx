@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { InputField } from "./common/InputField";
-import { USER_ACTIONS } from "../auth/_user.actions";
+import { userActions } from "../auth/_user.actions";
+import { FormError } from "./common/FormError";
 
-export const Login = ({ store, dispatch }) => {
+export const Login = ({ authState, dispatch }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginEnabled, setLoginEnabled] = useState(false);
@@ -14,7 +15,7 @@ export const Login = ({ store, dispatch }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginEnabled && USER_ACTIONS.login(dispatch, username, password);
+        loginEnabled && userActions.login(dispatch, username, password);
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -23,6 +24,7 @@ export const Login = ({ store, dispatch }) => {
                 <InputField
                     type="text"
                     htmlFor="username"
+                    enabled={authState.loggingIn ? false : true}
                     placeholder="Username"
                     value={username}
                     setValue={setUsername}
@@ -33,6 +35,7 @@ export const Login = ({ store, dispatch }) => {
             <div className="row">
                 <InputField
                     type="password"
+                    enabled={authState.loggingIn ? false : true}
                     placeholder="Password"
                     value={password}
                     setValue={setPassword}
@@ -50,6 +53,7 @@ export const Login = ({ store, dispatch }) => {
                     Login
                 </button>
             </div>
+            { authState.error && <FormError errorMessage={authState.error} />}
         </form>
     );
 };

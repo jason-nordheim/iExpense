@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { InputField } from "./common/InputField";
 import { useDispatch } from 'react-redux';
-import { USER_ACTIONS } from "../auth/_user.actions";
+import { userActions } from "../auth/_user.actions";
+import { FormError } from "./common/FormError";
 
-export const Register = ({ store }) => {
-    const dispatch = useDispatch();
+export const Register = ({ authState, dispatch }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginEnabled, setLoginEnabled] = useState(false);
@@ -16,7 +16,7 @@ export const Register = ({ store }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginEnabled && USER_ACTIONS.register(dispatch, username, password);
+        loginEnabled && userActions.register(dispatch, username, password);
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -52,6 +52,7 @@ export const Register = ({ store }) => {
                     Register
                 </button>
             </div>
+            { authState.error && <FormError errorMessage={authState.error} />}
         </form>
     );
 };
