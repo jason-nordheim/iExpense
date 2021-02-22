@@ -16,7 +16,7 @@ export const Register = ({ store }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginEnabled && dispatch(USER_ACTIONS.register(dispatch, username, password));
+        loginEnabled && USER_ACTIONS.register(dispatch, username, password);
     };
     return (
         <form onSubmit={handleSubmit}>

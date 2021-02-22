@@ -13,8 +13,7 @@ export const Profile = () => {
     const authStore = useStore();
     const [card, setCard] = useState(cards.login);
     const state = authStore.getState();
-    console.log(state.loggedIn);
-    console.log(state.user);
+    console.log('authState', state);
 
     const handleTabClick = (newCard) => {
         setCard(newCard);
@@ -53,8 +52,8 @@ export const Profile = () => {
                         </ul>
                     </div>
                     <div className="card-content">
-                        {card === cards.login && <Login store={authStore} />}
-                        {card === cards.register && <Register store={authStore} />}
+                        {card === cards.login && <Login store={authStore} dispatch={authStore.dispatch} />}
+                        {card === cards.register && <Register store={authStore} dispatch={authStore.dispatch} />}
                     </div>
                 </div>
             </div>

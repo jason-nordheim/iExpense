@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { InputField } from "./common/InputField";
-import { useDispatch } from 'react-redux';
 import { USER_ACTIONS } from "../auth/_user.actions";
 
-export const Login = ({ store }) => {
-    const dispatch = useDispatch();
+export const Login = ({ store, dispatch }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginEnabled, setLoginEnabled] = useState(false);
@@ -16,7 +14,7 @@ export const Login = ({ store }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginEnabled && dispatch(USER_ACTIONS.login(dispatch, username, password));
+        loginEnabled && USER_ACTIONS.login(dispatch, username, password);
     };
     return (
         <form onSubmit={handleSubmit}>
