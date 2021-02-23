@@ -19,6 +19,7 @@ const {
   FORBIDDEN,
   INTERNAL_SERVER_ERROR,
   NOT_IMPLEMENTED,
+  UNAUTHORIZED,
 } = require("./statusCodes");
 
 const app = express();
@@ -61,7 +62,6 @@ app.post(BASE_URL + "auth/login/", async (req, res) => {
       if (!passwordMatches) return res.status(FORBIDDEN).send(credError);
 
       const token = encodeToken(user);
-      console.log(token);
       return res.status(SUCCESS).send(token);
     } else {
       return res.status(FORBIDDEN).send(credError);
@@ -72,9 +72,20 @@ app.post(BASE_URL + "auth/login/", async (req, res) => {
 });
 
 app.get(BASE_URL + "auth/identity", async (req, res) => {
-  if (!req.body.token) return res.status(BAD_REQUEST).send(reqError);
+  if (!req.headers.authorization) {
+    return res.status(BAD_REQUEST).send(credError);
+  }
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = decodeToken(token);
+  const user = await findUserById(decodedToken.sub);
 
-  console.log(decodeToken(req.body.token));
+  if (!user) {
+    return res
+      .status(UNAUTHORIZED)
+      .send({ error: "No user associated with provided token" });
+  }
+
+  return res.status(SUCCESS).send({ username: user.username });
 });
 
 app.post(BASE_URL + "expenses/", async (req, res) => {
@@ -104,6 +115,7 @@ app.get(BASE_URL + "expenses/", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = decodeToken(token);
   const user = await findUserById(decodedToken.sub);
+
   const expenses = await getUserExpenses(user);
   return res.send(expenses);
 });
