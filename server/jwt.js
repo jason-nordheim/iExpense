@@ -14,6 +14,7 @@ module.exports = {
         tokenSecret
       ),
       exp: moment().add(2, "hour").unix(),
+      username: user.username,
     };
   },
   decodeToken: (token) => {
