@@ -22,22 +22,22 @@ export const userActions = {
 function login(dispatch, username, password) {
   const user = { username, password };
 
-  loginRequest(dispatch, user);
+  loginRequest(user);
 
   userService.login(username, password).then(
-    (token) => loginSuccess(dispatch, token),
-    (error) => loginFailure(dispatch, error)
+    (token) => loginSuccess(token),
+    (error) => loginFailure(error)
   );
 
-  function loginRequest(dispatch, payload) {
+  function loginRequest(payload) {
     console.log("loginRequest", payload);
     return dispatch({ type: USER_CONSTANTS.LOGIN_REQUEST, payload });
   }
-  function loginSuccess(dispatch, payload) {
+  function loginSuccess(payload) {
     console.log("loginSuccess", payload);
     return dispatch({ type: USER_CONSTANTS.LOGIN_SUCCESS, payload });
   }
-  function loginFailure(dispatch, payload) {
+  function loginFailure(payload) {
     console.log("loginFailure", payload);
     return dispatch({ type: USER_CONSTANTS.LOGIN_FAILURE, payload });
   }
@@ -61,21 +61,21 @@ function logout(dispatch) {
  * @param {String} password
  */
 function register(dispatch, username, password) {
-  registerRequest(dispatch, { username, password });
+  registerRequest({ username, password });
   userService.register(username, password).then(
-    (user) => registerSuccess(dispatch, user),
-    (error) => registerFailure(dispatch, error)
+    (user) => registerSuccess(user),
+    (error) => registerFailure(error)
   );
 
-  function registerRequest(dispatch, user) {
+  function registerRequest(user) {
     console.log("registerRequest", user);
     return dispatch({ type: USER_CONSTANTS.REGISTER_REQUEST, user });
   }
-  function registerSuccess(dispatch, user) {
+  function registerSuccess(user) {
     console.log("registerSuccess", user);
     return dispatch({ type: USER_CONSTANTS.REGISTER_SUCCESS, user });
   }
-  function registerFailure(dispatch, error) {
+  function registerFailure(error) {
     console.log("registerFailure", error);
     return dispatch({ type: USER_CONSTANTS.REGISTER_FAILURE, error });
   }
