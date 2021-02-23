@@ -1,33 +1,107 @@
 import { USER_CONSTANTS } from "./_user.constants";
-import { getToken } from "./_userService";
 
-const initialState = getToken();
+const initialState = {
+  authenticated: false,
+  requestInProgress: false,
+  error: null,
+  user: {
+    username: null,
+    token: null,
+    exp: null,
+  },
+};
 
 export function userReducer(state = initialState, action) {
+  console.log(action);
   switch (action.type) {
+    case USER_CONSTANTS.ALREADY_AUTHENTICATED:
+      return {
+        authenticated: true,
+        requestInProgress: false,
+        error: null,
+        user: {
+          username: action.payload.username,
+          token: action.payload.token,
+          exp: action.payload.exp,
+        },
+      };
     case USER_CONSTANTS.LOGIN_REQUEST:
       return {
-        loggingIn: true,
-        user: action.payload,
+        authenticated: false,
+        requestInProgress: true,
+        error: null,
+        user: {
+          username: null,
+          token: null,
+          exp: null,
+        },
       };
     case USER_CONSTANTS.LOGIN_SUCCESS:
       return {
-        loggedIn: true,
-        token: action.payload,
+        authenticated: true,
+        requestInProgress: false,
+        error: null,
+        user: {
+          username: action.payload.username,
+          token: action.payload.token,
+          exp: action.payload.exp,
+        },
       };
     case USER_CONSTANTS.LOGIN_FAILURE:
-      console.log("reducerLoginFailure", action.payload);
       return {
-        error: action.payload.data.error,
+        authenticated: false,
+        requestInProgress: false,
+        error: action.payload.error,
+        user: {
+          username: null,
+          token: null,
+          exp: null,
+        },
       };
     case USER_CONSTANTS.LOGOUT:
-      return {};
+      return {
+        authenticated: false,
+        requestInProgress: false,
+        error: null,
+        user: {
+          username: null,
+          token: null,
+          exp: null,
+        },
+      };
     case USER_CONSTANTS.REGISTER_REQUEST:
-      return { registering: true };
+      return {
+        authenticated: false,
+        requestInProgress: true,
+        error: null,
+        user: {
+          username: null,
+          token: null,
+          exp: null,
+        },
+      };
     case USER_CONSTANTS.REGISTER_SUCCESS:
-      return {};
+      return {
+        authenticated: false,
+        requestInProgress: false,
+        error: null,
+        user: {
+          username: null,
+          token: null,
+          exp: null,
+        },
+      };
     case USER_CONSTANTS.REGISTER_FAILURE:
-      return { error: action.payload.data.error };
+      return {
+        authenticated: false,
+        requestInProgress: false,
+        error: action.payload.error,
+        user: {
+          username: null,
+          token: null,
+          exp: null,
+        },
+      };
     default:
       return state;
   }
