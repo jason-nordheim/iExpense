@@ -61,7 +61,8 @@ app.post(BASE_URL + "auth/login/", async (req, res) => {
       if (!passwordMatches) return res.status(FORBIDDEN).send(credError);
 
       const token = encodeToken(user);
-      return res.status(SUCCESS).send({ token });
+      console.log(token);
+      return res.status(SUCCESS).send(token);
     } else {
       return res.status(FORBIDDEN).send(credError);
     }

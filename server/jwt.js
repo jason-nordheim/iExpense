@@ -4,14 +4,17 @@ const { tokenSecret } = require("./keys.dev");
 
 module.exports = {
   encodeToken: (user) => {
-    return jwt.encode(
-      {
-        exp: moment().add(2, "hour").unix(),
-        iat: moment().unix(),
-        sub: user._id,
-      },
-      tokenSecret
-    );
+    return {
+      token: jwt.encode(
+        {
+          exp: moment().add(2, "hour").unix(),
+          iat: moment().unix(),
+          sub: user._id,
+        },
+        tokenSecret
+      ),
+      exp: moment().add(2, "hour").unix(),
+    };
   },
   decodeToken: (token) => {
     return jwt.decode(token, tokenSecret);
