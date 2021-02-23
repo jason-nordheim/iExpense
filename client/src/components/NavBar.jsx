@@ -42,7 +42,7 @@ export const NavBar = () => {
     return (
         <>
             <nav>
-                <div className="nav-wrapper purple darken-4">
+                <div className="nav-wrapper blue darken-4">
                     <NavLink
                         to="/"
                         about="Homepage"

@@ -15,7 +15,7 @@ export const SignIn = () => {
 
     useEffect(() => setMatTabs(M.Tabs.init(tabsRef.current)), []);
 
-    const tabTextClasses = (cardType) => `purple-text text-darken-4 waves-effect waves-purple ${card === cardType && " active"}`;
+    const tabTextClasses = (cardType) => `blue-text text-darken-4 waves-effect waves-blue ${card === cardType && " active"}`;
 
     const loginId = "login";
     const registerId = "register";

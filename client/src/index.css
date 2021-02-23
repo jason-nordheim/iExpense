@@ -2,10 +2,10 @@
   --side-nav-width: 300px;
 }
 .tabs .tab a:focus.active {
-  background-color: #f3e5f5;
+  background-color: #e5f1f5;
 }
 .tabs .indicator {
-  background-color: #4a148c;
+  background-color: #0d47a1;
   /*Custom Color Of Indicator*/
 }
 

@@ -12,7 +12,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Provider store={userStore}>
-        <main className="purple lighten-4" style={{ height: "100vh" }}>
+        <main className="blue lighten-4" style={{ height: "100vh" }}>
           <NavBar />
           <Switch>
             <Route path="/profile">
