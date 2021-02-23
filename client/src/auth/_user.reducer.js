@@ -1,23 +1,25 @@
 import { USER_CONSTANTS } from "./_user.constants";
 import { getToken } from "./_userService";
 
-let token = getToken();
-const initialState = token ? { token: token, loggedIn: false } : {};
+const initialState = getToken();
 
 export function userReducer(state = initialState, action) {
   switch (action.type) {
     case USER_CONSTANTS.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.user,
+        user: action.payload,
       };
     case USER_CONSTANTS.LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        user: action.user,
+        token: action.payload,
       };
     case USER_CONSTANTS.LOGIN_FAILURE:
-      return {};
+      console.log("reducerLoginFailure", action.payload);
+      return {
+        error: action.payload.data.error,
+      };
     case USER_CONSTANTS.LOGOUT:
       return {};
     case USER_CONSTANTS.REGISTER_REQUEST:
@@ -25,7 +27,7 @@ export function userReducer(state = initialState, action) {
     case USER_CONSTANTS.REGISTER_SUCCESS:
       return {};
     case USER_CONSTANTS.REGISTER_FAILURE:
-      return {};
+      return { error: action.payload.data.error };
     default:
       return state;
   }
