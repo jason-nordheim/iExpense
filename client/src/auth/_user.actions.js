@@ -3,7 +3,7 @@ import { userService } from "./_userService";
 /**
  * action creators related to users
  */
-export const USER_ACTIONS = {
+export const userActions = {
   login,
   logout,
   register,
@@ -21,23 +21,25 @@ export const USER_ACTIONS = {
  */
 function login(dispatch, username, password) {
   const user = { username, password };
+
   loginRequest(dispatch, user);
+
   userService.login(username, password).then(
     (token) => loginSuccess(dispatch, token),
     (error) => loginFailure(dispatch, error)
   );
 
-  function loginRequest(dispatch, user) {
-    console.log("loginRequest", user);
-    return dispatch({ type: USER_CONSTANTS.LOGIN_REQUEST, user });
+  function loginRequest(dispatch, payload) {
+    console.log("loginRequest", payload);
+    return dispatch({ type: USER_CONSTANTS.LOGIN_REQUEST, payload });
   }
-  function loginSuccess(dispatch, user) {
-    console.log("loginSuccess", user);
-    return dispatch({ type: USER_CONSTANTS.LOGIN_SUCCESS, user });
+  function loginSuccess(dispatch, payload) {
+    console.log("loginSuccess", payload);
+    return dispatch({ type: USER_CONSTANTS.LOGIN_SUCCESS, payload });
   }
-  function loginFailure(dispact, error) {
-    console.log("loginFailure", error);
-    return dispatch({ type: USER_CONSTANTS.LOGIN_FAILURE, error });
+  function loginFailure(dispatch, payload) {
+    console.log("loginFailure", payload);
+    return dispatch({ type: USER_CONSTANTS.LOGIN_FAILURE, payload });
   }
 }
 
