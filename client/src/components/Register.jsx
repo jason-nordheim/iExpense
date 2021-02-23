@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { InputField } from "./common/InputField";
-import { useDispatch } from 'react-redux';
 import { userActions } from "../auth/_user.actions";
 import { FormError } from "./common/FormError";
 
-export const Register = ({ authState, dispatch }) => {
+export const Register = ({ id, authState, dispatch }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginEnabled, setLoginEnabled] = useState(false);
@@ -19,40 +18,42 @@ export const Register = ({ authState, dispatch }) => {
         loginEnabled && userActions.register(dispatch, username, password);
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <h3>Register</h3>
-            <div className="row">
-                <InputField
-                    type="text"
-                    htmlFor="username"
-                    placeholder="Username"
-                    value={username}
-                    setValue={setUsername}
-                    minLength={5}
-                    required
-                />
-            </div>
-            <div className="row">
-                <InputField
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    setValue={setPassword}
-                    minLength={5}
-                    required
-                />
-            </div>
-            <div className="row">
-                <button
-                    className={`waves-effect waves-light btn ${!loginEnabled && "disabled"
-                        }`}
-                    type="submit"
-                    onClick={handleSubmit}
-                >
-                    Register
+        <div id={id}>
+            <form onSubmit={handleSubmit}>
+                <h3>Register</h3>
+                <div className="row">
+                    <InputField
+                        type="text"
+                        htmlFor="username"
+                        placeholder="Username"
+                        value={username}
+                        setValue={setUsername}
+                        minLength={5}
+                        required
+                    />
+                </div>
+                <div className="row">
+                    <InputField
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        setValue={setPassword}
+                        minLength={5}
+                        required
+                    />
+                </div>
+                <div className="row">
+                    <button
+                        className={`waves-effect waves-light btn ${!loginEnabled && "disabled"
+                            }`}
+                        type="submit"
+                        onClick={handleSubmit}
+                    >
+                        Register
                 </button>
-            </div>
-            { authState.error && <FormError errorMessage={authState.error} />}
-        </form>
+                </div>
+                {authState.error && <FormError errorMessage={authState.error} />}
+            </form>
+        </div>
     );
 };

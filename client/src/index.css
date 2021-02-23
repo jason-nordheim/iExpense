@@ -1,6 +1,13 @@
 :root {
   --side-nav-width: 300px;
 }
+.tabs .tab a:focus.active {
+  background-color: #f3e5f5;
+}
+.tabs .indicator {
+  background-color: #4a148c;
+  /*Custom Color Of Indicator*/
+}
 
 span.em-divider {
   display: block;

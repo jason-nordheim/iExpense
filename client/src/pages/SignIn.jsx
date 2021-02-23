@@ -1,43 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Login } from "../components/Login";
 import { Register } from "../components/Register";
+import * as M from "materialize-css/dist/js/materialize";
 
 const cards = {
     login: "login",
     register: "register",
 };
 export const SignIn = ({ authState, authStore }) => {
+    const tabsRef = useRef(null);
+    const [matTabs, setMatTabs] = useState({});
     const [card, setCard] = useState(cards.login);
 
-    const tabTextClasses = `purple-text text-darken-4 ${card === card.login && "active"}`;
+    useEffect(() => setMatTabs(M.Tabs.init(tabsRef.current)), []);
+
+    const tabTextClasses = (cardType) => `purple-text text-darken-4 waves-effect waves-purple ${card === cardType && " active"}`;
+
+    const loginId = "login";
+    const registerId = "register";
 
     const handleTabClick = (e, newCard) => {
+        console.log(matTabs);
         e.preventDefault();
         setCard(newCard);
     };
     return (
         <>
             <div className="card-tabs">
-                <ul className="tabs tabs-fixed-width ">
+                <ul className="tabs tabs-fixed-width" ref={tabsRef}>
                     <li className="tab">
                         <a
-                            className={tabTextClasses}
-                            href="#!"
+                            className={tabTextClasses(card.login)}
+                            href={`#${loginId}`}
                             onClick={(e) => handleTabClick(e, cards.login)}
                         >Login</a>
                     </li>
-                    <li className={`tab`}>
+                    <li className="tab">
+
                         <a
-                            className={tabTextClasses}
-                            href="#!"
+                            className={tabTextClasses(card.register)}
+                            href={`#${registerId}`}
                             onClick={(e) => handleTabClick(e, cards.register)}
                         > Register</a>
                     </li>
                 </ul>
             </div>
             <div className="card-content">
-                {card === cards.login && <Login authState={authState} dispatch={authStore.dispatch} />}
-                {card === cards.register && <Register authState={authState} dispatch={authStore.dispatch} />}
+                <Login id={loginId} authState={authState} dispatch={authStore.dispatch} />
+                <Register id={registerId} authState={authState} dispatch={authStore.dispatch} />
             </div>
         </>
     );
