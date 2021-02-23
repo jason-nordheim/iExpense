@@ -2,17 +2,14 @@ import React, { useState, useEffect } from "react";
 import { InputField } from "./common/InputField";
 import { userActions } from "../auth/_user.actions";
 import { FormError } from "./common/FormError";
-import { useStore } from 'react-redux';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export const Register = ({ id }) => {
-    const authStore = useStore();
-    const [authState, setAuthState] = useState(authStore.getState());
+    const [authState, dispatch] = useAuthContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginEnabled, setLoginEnabled] = useState(false);
 
-    /** subscribe to changes in the store  */
-    useEffect(() => authStore.subscribe(() => setAuthState(authStore.getState())), [authStore]);
 
     /** enable login if both username and password fields have at least 5 characters  */
     useEffect(() => {
@@ -23,7 +20,7 @@ export const Register = ({ id }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginEnabled && userActions.register(authStore.dispatch, username, password);
+        loginEnabled && userActions.register(dispatch, username, password);
     };
     return (
         <div id={id}>

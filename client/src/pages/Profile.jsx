@@ -1,17 +1,11 @@
-import { useState, useEffect } from "react";
-import { useStore } from "react-redux";
 import { PageTitle } from "../components/common/PageTitle";
 import { MyAccount } from '../components/MyAccount';
 import { SignIn } from "./SignIn";
-import { userService } from '../auth/_userService';
-import { userActions } from "../auth/_user.actions";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 export const Profile = () => {
-    const authStore = useStore();
-    const [authState, setAuthState] = useState(authStore.getState());
-
-    useEffect(() => authStore.subscribe(() => setAuthState(authStore.getState())), [authStore]);
+    const [authState, dispatch] = useAuthContext();
 
     // useEffect(() => {
     //     if (authState && authState.exp && authState.token && userService.tokenIsValid()) {
