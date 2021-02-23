@@ -87,12 +87,8 @@ function handleResponse(requestUrl, response) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
     if (response.ok) return data;
-    else return Promise.reject(createError(data, response));
+    else return Promise.reject({ data, response });
   });
-
-  function createError(data, response) {
-    return (data && data.message) || response.statusText;
-  }
 }
 
 /**
