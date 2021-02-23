@@ -10,9 +10,7 @@ export const Profile = () => {
     const authStore = useStore();
     const [authState, setAuthState] = useState(authStore.getState());
 
-    useEffect(() => authStore.subscribe(() => setAuthState(authStore.getState())), []);
-
-
+    useEffect(() => authStore.subscribe(() => setAuthState(authStore.getState())), [authStore]);
 
     return (
         <>

@@ -7,7 +7,8 @@ const cards = {
     login: "login",
     register: "register",
 };
-export const SignIn = ({ authState, authStore }) => {
+
+export const SignIn = () => {
     const tabsRef = useRef(null);
     const [matTabs, setMatTabs] = useState({});
     const [card, setCard] = useState(cards.login);
@@ -20,7 +21,6 @@ export const SignIn = ({ authState, authStore }) => {
     const registerId = "register";
 
     const handleTabClick = (e, newCard) => {
-        console.log(matTabs);
         e.preventDefault();
         setCard(newCard);
     };
@@ -46,8 +46,8 @@ export const SignIn = ({ authState, authStore }) => {
                 </ul>
             </div>
             <div className="card-content">
-                <Login id={loginId} authState={authState} dispatch={authStore.dispatch} />
-                <Register id={registerId} authState={authState} dispatch={authStore.dispatch} />
+                <Login id={loginId} />
+                <Register id={registerId} />
             </div>
         </>
     );
