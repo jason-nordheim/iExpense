@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { InputField } from "./common/InputField";
-import { userActions } from "../auth/_user.actions";
-import { FormError } from "./common/FormError";
+import { InputField } from "../../common/InputField";
+import { userActions } from "../../../auth/_user.actions";
+import { FormError } from "../../common/FormError";
 import { useStore } from 'react-redux';
 
-export const Login = ({ id }) => {
+export const LoginForm = ({ id }) => {
     const authStore = useStore();
     const [authState, setAuthState] = useState(authStore.getState());
     const [username, setUsername] = useState("");

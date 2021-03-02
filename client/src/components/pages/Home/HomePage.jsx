@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { PageTitle } from "../../common/PageTitle";
 
-export const Home = () => {
+export const HomePage = () => {
     return (
         <>
             <div className="row">
@@ -11,10 +11,7 @@ export const Home = () => {
                 <div className="row">
                     <div className="card">
                         <div className="card-content">
-                            <p>
-                                Please <Link to="/profile">login</Link> to an account to get
-                started
-              </p>
+                            Please <Link to="/profile">login</Link> to an account to get started
                         </div>
                     </div>
                 </div>

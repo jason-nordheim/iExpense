@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { InputField } from "./common/InputField";
-import { userActions } from "../auth/_user.actions";
-import { FormError } from "./common/FormError";
-import { useAuthContext } from '../hooks/useAuthContext';
+import { InputField } from "../../common/InputField";
+import { FormError } from "../../common/FormError";
+import { userActions } from "../../../auth/_user.actions";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
-export const Register = ({ id }) => {
+export const RegisterForm = ({ id }) => {
     const [authState, dispatch] = useAuthContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

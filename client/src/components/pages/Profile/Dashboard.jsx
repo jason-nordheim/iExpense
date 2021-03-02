@@ -1,7 +1,7 @@
-import { userActions } from "../../../../auth/_user.actions";
-import { useAuthContext } from "../../../../hooks/useAuthContext";
+import { userActions } from "../../../auth/_user.actions";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
-export const MyAccount = () => {
+export function Dashboard() {
     const [authState, dispatch] = useAuthContext();
 
     const handleLogout = (event) => {
@@ -21,4 +21,4 @@ export const MyAccount = () => {
 
         </>
     );
-};
+}

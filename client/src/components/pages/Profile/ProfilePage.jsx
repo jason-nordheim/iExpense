@@ -1,8 +1,10 @@
 import { PageTitle } from "../../common/PageTitle";
-import { MyAccount, SignIn } from './index';
-import { useAuthContext } from "../../../hooks/useAuthContext";
 
-export const Profile = () => {
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { Dashboard } from "./Dashboard";
+import { SignInContainer } from "./SignInContainer";
+
+export const ProfilePage = () => {
     const [authState, dispatch] = useAuthContext();
 
     // useEffect(() => {
@@ -30,8 +32,8 @@ export const Profile = () => {
             <div className="container">
                 <div className="card">
                     {authState.authenticated
-                        ? <MyAccount />
-                        : <SignIn />
+                        ? <Dashboard />
+                        : <SignInContainer />
                     }
                 </div>
             </div>

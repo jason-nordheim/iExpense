@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as M from "materialize-css/dist/js/materialize";
+import { APP_NAME } from "../../config";
 
 export const NavBar = () => {
     const [sideNav, setSideNav] = useState({});
@@ -50,8 +51,8 @@ export const NavBar = () => {
                         onClick={handleNavLinkClick}
                     >
                         <i className="material-icons">account_balance</i>
-            Expense Me
-          </NavLink>
+                        {APP_NAME}
+                    </NavLink>
                     <div className="right">
                         <a href="#!" data-target="slide-out" className="sidenav-trigger">
                             <i className="material-icons em-menu-icon ">menu</i>

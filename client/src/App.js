@@ -1,12 +1,11 @@
 import React from "react";
-import { NavBar } from "./components/NavBar";
+import { NavBar } from "./components/common/NavBar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-import { Home } from "./pages/Home";
-import { Profile } from "./pages/Profile";
 
 import { Provider } from "react-redux";
 import { userStore } from "./auth/_user.store";
+import { HomePage } from "./components/pages/Home/HomePage";
+import { ProfilePage } from "./components/pages/Profile/ProfilePage";
 
 export const App = () => {
   return (
@@ -16,10 +15,10 @@ export const App = () => {
           <NavBar />
           <Switch>
             <Route path="/profile">
-              <Profile />
+              <ProfilePage />
             </Route>
             <Route exact path="/">
-              <Home />
+              <HomePage />
             </Route>
           </Switch>
         </main>

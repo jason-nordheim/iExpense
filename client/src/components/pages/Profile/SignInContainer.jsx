@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { Login } from "../../Login";
-import { Register } from "../../Register";
 import * as M from "materialize-css/dist/js/materialize";
+import { RegisterForm } from './RegisterForm';
+import { LoginForm } from './LoginForm';
+
 
 const cards = {
     login: "login",
     register: "register",
 };
 
-export const SignIn = () => {
+export function SignInContainer() {
     const tabsRef = useRef(null);
     const [matTabs, setMatTabs] = useState({});
     const [card, setCard] = useState(cards.login);
@@ -46,9 +47,9 @@ export const SignIn = () => {
                 </ul>
             </div>
             <div className="card-content">
-                <Login id={loginId} />
-                <Register id={registerId} />
+                <LoginForm id={loginId} />
+                <RegisterForm id={registerId} />
             </div>
         </>
     );
-};
+}
