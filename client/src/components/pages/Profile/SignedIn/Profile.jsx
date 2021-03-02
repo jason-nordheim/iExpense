@@ -1,8 +1,6 @@
-import { PageTitle } from "../common/PageTitle";
-import { MyAccount } from '../MyAccount';
-import { SignIn } from "./SignIn";
-import { useAuthContext } from "../../hooks/useAuthContext";
-
+import { PageTitle } from "../../common/PageTitle";
+import { MyAccount, SignIn } from './index';
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 export const Profile = () => {
     const [authState, dispatch] = useAuthContext();

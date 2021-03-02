@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageTitle } from "../common/PageTitle";
+import { PageTitle } from "../../common/PageTitle";
 
 export const Home = () => {
     return (

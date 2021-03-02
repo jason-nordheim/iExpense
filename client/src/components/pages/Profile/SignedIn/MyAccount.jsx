@@ -1,5 +1,5 @@
-import { userActions } from "../auth/_user.actions";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { userActions } from "../../../../auth/_user.actions";
+import { useAuthContext } from "../../../../hooks/useAuthContext";
 
 export const MyAccount = () => {
     const [authState, dispatch] = useAuthContext();
