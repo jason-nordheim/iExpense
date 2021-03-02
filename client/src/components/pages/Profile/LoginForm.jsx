@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import { InputField } from "../../common/InputField";
 import { userActions } from "../../../auth/_user.actions";
 import { FormError } from "../../common/FormError";
-import { useStore } from 'react-redux';
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 export const LoginForm = ({ id }) => {
-    const authStore = useStore();
-    const [authState, setAuthState] = useState(authStore.getState());
+    const [authState, dispatch] = useAuthContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginEnabled, setLoginEnabled] = useState(false);
 
     /** subscribe to changes in the store  */
-    useEffect(() => authStore.subscribe(() => setAuthState(authStore.getState())), [authStore]);
+    console.log('authState', authState);
 
     /** enable login if both username and password fields have at least 5 characters  */
     useEffect(() => {
@@ -23,7 +22,7 @@ export const LoginForm = ({ id }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginEnabled && userActions.login(authStore.dispatch, username, password);
+        loginEnabled && userActions.login(dispatch, username, password);
     };
     return (
         <div id={id}>
@@ -55,7 +54,7 @@ export const LoginForm = ({ id }) => {
                 </div>
                 <div className="row">
                     <button
-                        className={`waves-effect waves-light btn ${!loginEnabled && "disabled"
+                        className={`blue darken-4 waves-effect waves-light btn ${!loginEnabled && "disabled"
                             }`}
                         type="submit"
                         onClick={handleSubmit}

@@ -50,7 +50,7 @@ export const RegisterForm = ({ id }) => {
                 </div>
                 <div className="row">
                     <button
-                        className={`waves-effect waves-light btn ${!loginEnabled && "disabled"
+                        className={`blue darken-4 waves-effect waves-light btn ${!loginEnabled && "disabled"
                             }`}
                         type="submit"
                         onClick={handleSubmit}
