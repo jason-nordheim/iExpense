@@ -22,7 +22,9 @@ function loginUser({ username, password }) {
     body: JSON.stringify({ username, password }),
   };
   const URI = Routes.LoginUser.url;
-  return fetch(URI, requestOptions).then((res) => handleResponse(URI, res));
+  return fetch(URI, requestOptions).then((res, err) =>
+    handleResponse(URI, res, err)
+  );
 }
 
 function registerUser({ username, password }) {
@@ -32,7 +34,9 @@ function registerUser({ username, password }) {
     body: JSON.stringify({ username, password }),
   };
   const URI = Routes.RegisterUser.url;
-  return fetch(URI, requestOptions).then((res) => handleResponse(URI, res));
+  return fetch(URI, requestOptions).then((res, err) =>
+    handleResponse(URI, res, err)
+  );
 }
 
 function whoAmI(token) {
@@ -41,18 +45,21 @@ function whoAmI(token) {
     headers: authHeader(token),
   };
   const URI = Routes.WhoAmI.url;
-  return fetch(URI, requestOptions).then((res) => handleResponse(URI, res));
+  return fetch(URI, requestOptions).then((res, err) =>
+    handleResponse(URI, res, err)
+  );
 }
 
 function logoutUser() {
   localStorage.removeItem(LOCAL_STORAGE_KEY);
 }
 
-function handleResponse(requestUrl, response) {
-  return response.text().then((text) => {
+function handleResponse(requestUrl, onFufilled, onRejected) {
+  if (onRejected) return console.log("onRejected", onRejected);
+  return onFufilled.text().then((text) => {
     const data = text && JSON.parse(text);
-    if (response.ok) return data;
-    else return Promise.reject({ data, response });
+    if (onFufilled.ok) return data;
+    else return Promise.reject({ data, response: onFufilled });
   });
 }
 

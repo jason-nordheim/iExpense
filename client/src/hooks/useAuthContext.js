@@ -5,10 +5,13 @@ export const useAuthContext = () => {
   const authStore = useStore();
   const [authState, setAuthState] = useState(authStore.getState());
   const { dispatch } = authStore;
-  useEffect(
-    () => authStore.subscribe(() => setAuthState(authStore.getState())),
-    [authStore]
-  );
+  useEffect(() => {
+    let unsubscribe = authStore.subscribe((listener) => {
+      const newState = authStore.getState();
+      console.log(newState);
+      setAuthState(newState);
+    });
+  }, [authStore, authState]);
 
   return [authState, dispatch];
 };
