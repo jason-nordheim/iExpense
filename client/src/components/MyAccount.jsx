@@ -18,6 +18,7 @@ export const MyAccount = () => {
             <div className="card-content">
                 Welcome {authState.user.username}
             </div>
+
         </>
     );
 };

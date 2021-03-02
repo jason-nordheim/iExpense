@@ -1,7 +1,7 @@
-import { PageTitle } from "../components/common/PageTitle";
-import { MyAccount } from '../components/MyAccount';
+import { PageTitle } from "../common/PageTitle";
+import { MyAccount } from '../MyAccount';
 import { SignIn } from "./SignIn";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 
 export const Profile = () => {
@@ -28,15 +28,23 @@ export const Profile = () => {
                 <PageTitle value="Profile" />
             </div>
 
+
             <div className="container">
                 <div className="card">
                     {authState.authenticated
                         ? <MyAccount />
                         : <SignIn />
                     }
-
                 </div>
             </div>
+
+            { authState.authenticated &&
+                <div className="container">
+                    <div className="card">
+
+                    </div>
+                </div>
+            }
         </>
     );
 };
